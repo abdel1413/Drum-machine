@@ -22,6 +22,7 @@ function App() {
   const [soundType, setSoundType] = useState("heaterKit");
   const [sounds, setSounds] = useState(soundGroups[soundType]);
   const [soundTitle, setSoundTitle] = useState("");
+  const [volume, setVolume] = useState(1);
   // console.log("sounds grp ////", soundGroups[soundType]);
 
   const playSound = (key, sound) => {
@@ -38,20 +39,38 @@ function App() {
     if (soundType === "heaterKit") {
       setSoundType("smoothSound");
       setSounds(soundGroups.smoothSound);
-      // console.log("soundGroups.smoothSound", soundGroups.smoothSound);
     } else {
       setSoundType("heaterKit");
       setSounds(soundGroups.heaterKit);
-      // console.log("soundGroups.heaterGroup", soundGroups.heaterKit);
     }
   };
 
-  //console.log("title ////", typeOfSound[soundType]);
+  const handleVolume = (e) => {
+    setVolume(e.target.value);
+  };
+
+  //create a methd to connect the input volume to
+  //audi so we can manipulate the volume.
+  //to do this, get the sounds'key and loop thru the result
+  // then set the audio.volume to volume hook
+  const setKeyVolume = () => {
+    const audios = sounds.map((sound) => document.getElementById(sound.key));
+
+    audios.forEach((audio) => {
+      if (audio) {
+        audio.volume = volume;
+      }
+    });
+  };
+
   return (
     <div id="drum-machine">
+      {setKeyVolume()}
       <div id="container">
         <KeyPads playSound={playSound} sounds={sounds} />
         <SecondSoundGroup
+          volume={volume}
+          handleVolume={handleVolume}
           title={soundTitle || typeOfSound[soundType]}
           switchSoundPlay={switchSoundPlay}
         />

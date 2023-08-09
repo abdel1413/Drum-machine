@@ -1,10 +1,25 @@
 import React from "react";
 
-export const SecondSoundGroup = ({ title, switchSoundPlay }) => {
-  console.log("title", title);
+export const SecondSoundGroup = ({
+  volume,
+  handleVolume,
+  title,
+  switchSoundPlay,
+}) => {
+  //console.log("title", title);
+
   return (
     <div>
-      <h1 id="">title</h1>
+      <div className="volume-bar">
+        <input
+          max="1"
+          min="0"
+          step="0.01"
+          type="range"
+          volume={volume}
+          onChange={handleVolume}
+        />
+      </div>
       <h1>{title}</h1>
       <button onClick={switchSoundPlay}>Switch</button>;
     </div>
