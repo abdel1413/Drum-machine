@@ -1,5 +1,6 @@
 import React from "react";
 import { KeyPress } from "./KeyPress";
+import { KeyPressWithNosound } from "./KeyPressWithNoSound";
 
 //NOTE: we create that child component so we can use
 //useEffect hook to add event listener.
@@ -10,14 +11,20 @@ import { KeyPress } from "./KeyPress";
 // The cild comp KeyPads takes its prop PlaySound and
 // passed it to its child comp keyPress.
 
-export const KeyPads = ({ playSound, sounds }) => {
-  return (
-    <div id="pad-container">
-      {sounds.map((sound) => (
-        <KeyPress playSound={playSound} snd={sound} />
-      ))}
-    </div>
-  );
+export const KeyPads = ({ power, playSound, sounds }) => {
+  // sounds.map((element) => {
+  //   let at = { ...element };
+  //   let c = (at.src = "#");
+  //   console.log(c);
+  // });
+  let padWithSound = sounds.map((sound) => (
+    <KeyPress playSound={playSound} snd={sound} />
+  ));
+  let padWithNoSound = sounds.map((sound) => (
+    <KeyPressWithNosound snd={sound} />
+  ));
+
+  return <div id="pad-container">{power ? padWithSound : padWithNoSound}</div>;
 };
 
 //RETURN BUTTON WITHOUT KEYPRESS EFFECT

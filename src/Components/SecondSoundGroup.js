@@ -1,15 +1,21 @@
 import React from "react";
 
 export const SecondSoundGroup = ({
+  switchPower,
+  power,
   volume,
   handleVolume,
   title,
   switchSoundPlay,
 }) => {
-  //console.log("title", title);
-
   return (
     <div>
+      <div>
+        <button onClick={switchPower}>Power:{power ? "OFF" : "ON"}</button>
+      </div>
+      <div>
+        <p>Volume: %{Math.round(volume * 100)}</p>
+      </div>
       <div className="volume-bar">
         <input
           max="1"

@@ -23,19 +23,30 @@ function App() {
   const [sounds, setSounds] = useState(soundGroups[soundType]);
   const [soundTitle, setSoundTitle] = useState("");
   const [volume, setVolume] = useState(1);
-  // console.log("sounds grp ////", soundGroups[soundType]);
+  const [power, setPower] = useState(true);
+  console.log("sounds grp ////", soundGroups[soundType]);
 
   const playSound = (key, sound) => {
     setSoundTitle(sound);
     const audio = document.getElementById(key);
     audio.currentTime = 0;
-    audio.play();
+
+    // audio.src && audio.play();
+
+    if (audio.src === "") {
+      audio.pause();
+      audio.currentTime = 0;
+    } else {
+      audio.play();
+    }
   };
 
   //method to switch sound voice when clicked on
   //passed as props to second group.
+
   const switchSoundPlay = () => {
     setSoundTitle("");
+    setSounds("");
     if (soundType === "heaterKit") {
       setSoundType("smoothSound");
       setSounds(soundGroups.smoothSound);
@@ -45,6 +56,8 @@ function App() {
     }
   };
 
+  // console.log("sounds", sounds);
+  console.log("sountyep", soundType);
   const handleVolume = (e) => {
     setVolume(e.target.value);
   };
@@ -55,7 +68,6 @@ function App() {
   // then set the audio.volume to volume hook
   const setKeyVolume = () => {
     const audios = sounds.map((sound) => document.getElementById(sound.key));
-
     audios.forEach((audio) => {
       if (audio) {
         audio.volume = volume;
@@ -63,12 +75,19 @@ function App() {
     });
   };
 
+  //create power on/off method
+  const switchPower = () => {
+    setPower(!power);
+  };
+
   return (
     <div id="drum-machine">
       {setKeyVolume()}
       <div id="container">
-        <KeyPads playSound={playSound} sounds={sounds} />
+        <KeyPads playSound={playSound} sounds={sounds} power={power} />
         <SecondSoundGroup
+          switchPower={switchPower}
+          power={power}
           volume={volume}
           handleVolume={handleVolume}
           title={soundTitle || typeOfSound[soundType]}
@@ -88,7 +107,7 @@ function App() {
           </div>
           <div id="display"></div>
           <div className="volume-bar">
-            <input max="2" min="0" step="0.01" type="range" />
+            {/* <input max="2" min="0" step="0.01" type="range" /> */}
           </div>
           <div className="power-controller">
             <p>Bank</p>
