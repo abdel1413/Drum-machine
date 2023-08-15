@@ -1,4 +1,7 @@
 import React from "react";
+import { PowerButton } from "./PowerButton";
+import { SwitchSoundButton } from "./SwitchSoundButton";
+import { VolumeSlider } from "./VolumeSlider";
 
 export const SecondSoundGroup = ({
   switchPower,
@@ -7,27 +10,28 @@ export const SecondSoundGroup = ({
   handleVolume,
   title,
   switchSoundPlay,
+  isChecked,
 }) => {
   return (
     <div>
-      <div>
-        <button onClick={switchPower}>Power:{power ? "OFF" : "ON"}</button>
-      </div>
-      <div>
-        <p>Volume: %{Math.round(volume * 100)}</p>
-      </div>
-      <div className="volume-bar">
-        <input
-          max="1"
-          min="0"
-          step="0.01"
-          type="range"
-          volume={volume}
-          onChange={handleVolume}
+      <PowerButton label="Power" power={power} handleDisabled={switchPower} />
+
+      <button onClick={switchPower}>{power ? "OFF" : "ON"}</button>
+      <div className="second-column">
+        <div>
+          <p className="percentage">Volume: %{Math.round(volume * 100)}</p>
+        </div>
+        <VolumeSlider volume={volume} handleVolume={handleVolume} />
+        <div id="display">{title || volume}</div>
+
+        <SwitchSoundButton
+          isChecked={isChecked}
+          switchSoundPlay={switchSoundPlay}
+          label="Switch"
         />
+
+        {/* <button onClick={switchSoundPlay}>Switch</button> */}
       </div>
-      <h1>{title}</h1>
-      <button onClick={switchSoundPlay}>Switch</button>;
     </div>
   );
 };

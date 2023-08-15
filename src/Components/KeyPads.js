@@ -10,21 +10,32 @@ import { KeyPressWithNosound } from "./KeyPressWithNoSound";
 
 // The cild comp KeyPads takes its prop PlaySound and
 // passed it to its child comp keyPress.
-
 export const KeyPads = ({ power, playSound, sounds }) => {
-  // sounds.map((element) => {
-  //   let at = { ...element };
-  //   let c = (at.src = "#");
-  //   console.log(c);
-  // });
+  //console.log("sounds", sounds);
+  //console.log(power);
+  //!power && sounds.map((sound) => console.log({ ...sound, src: null }));
+
   let padWithSound = sounds.map((sound) => (
     <KeyPress playSound={playSound} snd={sound} />
   ));
   let padWithNoSound = sounds.map((sound) => (
-    <KeyPressWithNosound snd={sound} />
+    <KeyPressWithNosound snd={{ ...sound, src: null }} />
   ));
 
   return <div id="pad-container">{power ? padWithSound : padWithNoSound}</div>;
+  // return (
+  //   <div id="pad-container">
+  //     {power
+  //       ? sounds.map((sound) => {
+  //           return <KeyPress playSound={playSound} snd={sound} />;
+  //         })
+  //       : sounds.map((sound) => {
+  //           return (
+  //             <KeyPress playSound={playSound} snd={{ ...sound, src: null }} />
+  //           );
+  //         })}
+  //   </div>
+  // );
 };
 
 //RETURN BUTTON WITHOUT KEYPRESS EFFECT

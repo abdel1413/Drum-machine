@@ -1,27 +1,94 @@
 body {
   background-color: #8d8d8d;
+  font-family: "Russo One";
+  /* font-family: Georgia, "Times New Roman", Times, serif; */
 }
 
 #drum-machine {
-  padding: 2rem;
+  /* padding: 2rem; */
   align-items: center;
   justify-content: center;
   text-align: center;
-  border: 3px solid #f2a443;
+  border: 4px solid #f2a443;
   margin: 5rem auto;
   width: 50%;
   background-color: #b3b3b3;
 }
 
+.logo {
+  display: flex;
+  float: right;
+  /* border: 1px solid red; */
+  clear: both;
+  margin-right: 10px;
+  margin-top: 3px;
+  font-size: 20px;
+  font-weight: bolder;
+  font-style: italic;
+}
+.logo-text {
+  /* margin-right: 2px; */
+  font-weight: bolder;
+  font-style: italic;
+  padding-top: 2px;
+  /* border: blue solid 2px; */
+}
+.fa {
+  font-size: 25px;
+  font-weight: bold;
+  font-style: italic;
+  margin-bottom: 0;
+  line-height: 1;
+}
+.logo > p::before {
+  position: absolute;
+  top: 0.5;
+  right: -3;
+  content: "";
+  width: 20px;
+  height: 2px;
+  background-color: black;
+}
+.percentage {
+  margin: 0.5rem;
+}
+.volume-bar {
+  -webkit-appearance: none;
+  height: 10px;
+  width: 70%;
+  opacity: 0.7;
+  background: #808080;
+}
+
+.volume-bar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 25px;
+  width: 10px;
+  /* border-radius: 10px; */
+  background-color: #2044f5;
+  cursor: pointer;
+}
+
+.volume-bar::-moz-range-thumb {
+  height: 25px;
+  width: 10px;
+  border-radius: 10px;
+  /* background-color: #2044F5; */
+  cursor: pointer;
+}
+
 #container {
-  border: 1px solid red;
+  margin: 2rem;
+  clear: both;
+  /* border: 1px solid red; */
   display: grid;
   grid-gap: 1.5rem;
   grid-template-columns: repeat(2, 1fr);
 }
 
 #pad-container {
-  border: 2px solid red;
+  /* border: 2px solid red; */
   padding: 0;
   display: grid;
   gap: 0;
@@ -34,10 +101,11 @@ body {
   width: 100px;
   height: 80px;
   margin: 0.5rem;
-  border: 1px solid black;
+
   cursor: pointer;
   box-shadow: black 3px 3px 5px;
   border-radius: 5px;
+  border: #808080 solid 1px;
   background-color: #808080;
   color: #000;
   font-weight: bolder;
@@ -45,8 +113,9 @@ body {
 }
 
 .drum-pad:active {
+  border: solid 1px #f2a443;
   background-color: #f2a443;
-  box-shadow: #f2a443 3px 3px 5px;
+  box-shadow: black 3px 3px 5px;
 }
 .control {
   border: 2px solid blue;
@@ -59,8 +128,14 @@ body {
   justify-content: center;
   height: 2rem;
   border: 1px solid gray;
+  margin: 15px;
+  background-color: #808080;
 }
 
 .carrot {
   background-color: #f2a443;
+}
+
+.controls {
+  pointer-events: none;
 }

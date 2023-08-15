@@ -1,10 +1,13 @@
 import "./App.css";
+import "@fontsource/russo-one";
+
 import { FaFreeCodeCamp } from "react-icons/fa";
 import { KeyPads } from "./Components/KeyPads";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { SecondSoundGroup } from "./Components/SecondSoundGroup";
 import SoundData from "./Components/SoundData";
 import SoundData2 from "./Components/SoundData2";
+import { Logo } from "./Components/Logo";
 
 //object to match with allowing to switch sound groups
 const typeOfSound = {
@@ -24,44 +27,49 @@ function App() {
   const [soundTitle, setSoundTitle] = useState("");
   const [volume, setVolume] = useState(1);
   const [power, setPower] = useState(true);
-  console.log("sounds grp ////", soundGroups[soundType]);
+  const [isChecked, setIsChecked] = useState(false);
 
-  const playSound = (key, sound) => {
-    setSoundTitle(sound);
+  //const isActive = useRef(true);
+
+  const playSound = (key, snd) => {
+    setSoundTitle(snd);
     const audio = document.getElementById(key);
-    audio.currentTime = 0;
 
-    // audio.src && audio.play();
-
-    if (audio.src === "") {
-      audio.pause();
-      audio.currentTime = 0;
-    } else {
+    if (audio) {
       audio.play();
+    } else {
+      return;
     }
+    // audio.src !== null && audio.play();
   };
 
+  // const handleDisabled = (e) => {
+  //   if (e.target.checked) {
+  //     setDisabled(!isDisabled);
+  //   } else {
+  //     setDisabled(false);
+  //   }
+  // };
   //method to switch sound voice when clicked on
   //passed as props to second group.
-
   const switchSoundPlay = () => {
     setSoundTitle("");
-    setSounds("");
     if (soundType === "heaterKit") {
+      setIsChecked(!isChecked);
       setSoundType("smoothSound");
       setSounds(soundGroups.smoothSound);
     } else {
+      setIsChecked(false);
       setSoundType("heaterKit");
       setSounds(soundGroups.heaterKit);
+      // setSoundTitle(soundGroups.heaterKit.id);
     }
   };
 
-  // console.log("sounds", sounds);
-  console.log("sountyep", soundType);
   const handleVolume = (e) => {
     setVolume(e.target.value);
   };
-
+  console.log("voluem", volume);
   //create a methd to connect the input volume to
   //audi so we can manipulate the volume.
   //to do this, get the sounds'key and loop thru the result
@@ -76,16 +84,28 @@ function App() {
   };
 
   //create power on/off method
+  //and pass it in return div so that whenever there a rerender,
+  //it's called
   const switchPower = () => {
     setPower(!power);
+    setVolume(!volume);
+    console.log("p", power);
+
+    let controls = document.getElementsByClassName("second-column")[0];
+
+    power === true
+      ? controls.classList.add("controls")
+      : controls.classList.remove("controls");
   };
 
   return (
     <div id="drum-machine">
+      <Logo />
       {setKeyVolume()}
       <div id="container">
         <KeyPads playSound={playSound} sounds={sounds} power={power} />
         <SecondSoundGroup
+          isChecked={isChecked}
           switchPower={switchPower}
           power={power}
           volume={volume}
@@ -93,29 +113,6 @@ function App() {
           title={soundTitle || typeOfSound[soundType]}
           switchSoundPlay={switchSoundPlay}
         />
-
-        <div className="control">
-          <div className="logo">
-            <h2>FCC</h2>
-            <FaFreeCodeCamp />
-          </div>
-          <div className="power-controller">
-            <p>Prower</p>
-            <div className="select">
-              <div className="inner" style={{ float: "right" }}></div>
-            </div>
-          </div>
-          <div id="display"></div>
-          <div className="volume-bar">
-            {/* <input max="2" min="0" step="0.01" type="range" /> */}
-          </div>
-          <div className="power-controller">
-            <p>Bank</p>
-            <div className="select">
-              <div className="inner" style={{ float: "left" }}></div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );
