@@ -28,6 +28,7 @@ function App() {
   const [volume, setVolume] = useState(1);
   const [power, setPower] = useState(true);
   const [isChecked, setIsChecked] = useState(false);
+  let isActive = useRef(null);
 
   //const isActive = useRef(true);
 
@@ -43,13 +44,6 @@ function App() {
     // audio.src !== null && audio.play();
   };
 
-  // const handleDisabled = (e) => {
-  //   if (e.target.checked) {
-  //     setDisabled(!isDisabled);
-  //   } else {
-  //     setDisabled(false);
-  //   }
-  // };
   //method to switch sound voice when clicked on
   //passed as props to second group.
   const switchSoundPlay = () => {
@@ -86,16 +80,26 @@ function App() {
   //create power on/off method
   //and pass it in return div so that whenever there a rerender,
   //it's called
+  const styleButton = (p) => {
+    if (p) {
+      isActive.current.style.backgroundColor = "#4E51DF";
+      isActive.current.style.color = "white";
+      isActive.current.style.borderRadius = "10px";
+    } else {
+      isActive.current.style = "initial";
+    }
+  };
   const switchPower = () => {
     setPower(!power);
     setVolume(!volume);
-    console.log("p", power);
 
     let controls = document.getElementsByClassName("second-column")[0];
 
-    power === true
+    power
       ? controls.classList.add("controls")
       : controls.classList.remove("controls");
+    console.log("active", isActive.current.style);
+    styleButton(power);
   };
 
   return (
@@ -105,6 +109,7 @@ function App() {
       <div id="container">
         <KeyPads playSound={playSound} sounds={sounds} power={power} />
         <SecondSoundGroup
+          isActive={isActive}
           isChecked={isChecked}
           switchPower={switchPower}
           power={power}
