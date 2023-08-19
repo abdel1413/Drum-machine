@@ -32,6 +32,7 @@ body {
   font-weight: bolder;
   font-style: italic;
 }
+
 .logo-text {
   /* margin-right: 2px; */
   font-weight: bolder;
@@ -46,6 +47,7 @@ body {
   margin-bottom: 0;
   line-height: 1;
 }
+
 .logo > p::before {
   position: absolute;
   top: 0.5;
@@ -55,6 +57,13 @@ body {
   height: 2px;
   background-color: black;
 }
+/* .logo::before {
+  content: "\00bb";
+  position: absolute;
+  margin-right: 2rem;
+  top: 10;
+  left: 500px;
+} */
 .percentage {
   margin: 0.5rem;
 }
@@ -107,7 +116,6 @@ body {
   width: var(--with);
   height: var(--height);
   margin: 0.5rem;
-
   cursor: pointer;
   box-shadow: black 3px 3px 5px;
   border-radius: 5px;
@@ -116,13 +124,16 @@ body {
   color: #000;
   font-weight: bolder;
   font-size: 1rem;
+  transition: transform 0.2s ease;
 }
 
 .drum-pad:active {
-  border: solid 1px #f2a443;
-  background-color: #f2a443;
+  /* border: solid 1px #f2a443;
+  background-color: #f2a443; */
   box-shadow: black 3px 3px 5px;
+  transform: scale(0.9);
 }
+
 .control {
   border: 2px solid blue;
   padding: 2rem;

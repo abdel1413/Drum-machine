@@ -11,8 +11,6 @@ export const KeyPress = ({ playSound, sound: { id, key, keyCode, src } }) => {
 
   const handleKeyPress = (e) => {
     if (e.keyCode === keyCode) {
-      console.log("key", key);
-      console.log("id", id);
       playSound(key, id);
 
       // item.classList.add("carrot");

@@ -34,13 +34,14 @@ function App() {
 
   const playSound = (key, sound) => {
     setSoundTitle(sound);
-    console.log("key", key);
-    console.log("sound", sound);
+
     const audio = document.getElementById(key);
-    stylePad(audio);
     if (audio) {
+      stylePad(audio);
+      // removeStyle(audio);
       audio.play();
     } else {
+      console.log("aud", audio);
       return;
     }
     // audio.src !== null && audio.play();
@@ -97,6 +98,13 @@ function App() {
     //console.log("pad", (pad.parentNode.style.backgroundColor = "green"));
 
     pad.parentNode.style.backgroundColor = "#f2a443";
+
+    setTimeout(() => {
+      pad.parentNode.style.backgroundColor = "#808080";
+    }, 200);
+  };
+
+  const removeStyle = (pad) => {
     setTimeout(() => {
       pad.parentNode.style.backgroundColor = "#808080";
     }, 200);
@@ -110,7 +118,7 @@ function App() {
     power
       ? controls.classList.add("controls")
       : controls.classList.remove("controls");
-    console.log("active", isActive.current.style);
+
     refButton(power);
   };
 
