@@ -6,20 +6,16 @@ import React, { useEffect } from "react";
 // child comp in keypad component
 //that we can control each key that's pressed on keyboard
 
-export const KeyPress = ({ playSound, snd: { id, key, keyCode, src } }) => {
+export const KeyPress = ({ playSound, sound: { id, key, keyCode, src } }) => {
   //methd to called whenever  key is press down and the componentdidmount
 
   const handleKeyPress = (e) => {
     if (e.keyCode === keyCode) {
-      playSound(key, id);
+      console.log("key", key);
       console.log("id", id);
-      let item = document.getElementsByClassName(id)[0];
-      if (e.type === "keydown") {
-        console.log("item", item);
-        //console.log("classlis", item.classList);
-        item.classList.add("carrot");
-      }
-      return;
+      playSound(key, id);
+
+      // item.classList.add("carrot");
     }
   };
 
@@ -28,26 +24,22 @@ export const KeyPress = ({ playSound, snd: { id, key, keyCode, src } }) => {
   }, []);
 
   const handleKeyUp = (e) => {
-    let item = document.getElementsByClassName(id)[0];
-
     if (e.keyCode === keyCode) {
-      if (e.type === "keyup") {
-        // console.log("class", item.classList);
-        item.classList.remove("carrot");
-      }
-      return;
+      let item = document.getElementById(id);
+      //console.log("item up ", item);
+      //item.classList.remove("carrot");
     }
   };
   useEffect(() => {
     document.addEventListener("keyup", handleKeyUp);
-  });
+  }, []);
   return (
     <div>
       {/* <h3>{snd.id}</h3> */}
       <button
-        className={`drum-pad ${id}`}
+        className={`drum-pad `}
         key={key}
-        id={id}
+        id={keyCode}
         onClick={() => playSound(key, id)}
       >
         <audio className="clip" id={key} src={src} />

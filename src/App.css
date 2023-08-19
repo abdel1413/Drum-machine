@@ -1,3 +1,8 @@
+:root {
+  --with: 100px;
+  --height: 80px;
+  --blue: blue;
+}
 body {
   background-color: #8d8d8d;
   font-family: "Russo One";
@@ -6,6 +11,7 @@ body {
 
 #drum-machine {
   /* padding: 2rem; */
+
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -98,8 +104,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100px;
-  height: 80px;
+  width: var(--with);
+  height: var(--height);
   margin: 0.5rem;
 
   cursor: pointer;
@@ -138,4 +144,105 @@ body {
 
 .controls {
   pointer-events: none;
+}
+
+/* End  */
+/* query selectors */
+
+@media screen and (max-width: 1081px) {
+  #drum-machine {
+    width: 50%;
+  }
+
+  /* #container {
+    display: grid;
+    grid-template-columns: 1fr;
+  } */
+
+  #pad-container {
+  }
+  .drum-pad {
+    width: 90px;
+    height: 60px;
+  }
+}
+
+@media screen and (max-width: 971px) {
+  #drum-machine {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #container {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  #pad-container {
+  }
+  .drum-pad {
+    width: 80px;
+    height: 70px;
+  }
+  .logo {
+    display: flex;
+    margin-left: 300px;
+    margin-top: 10px;
+    float: right;
+    text-align: end;
+  }
+}
+
+@media screen and (max-width: 871px) {
+  #drum-machine {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #container {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  #pad-container {
+  }
+  .drum-pad {
+    width: 70px;
+    height: 60px;
+  }
+  .logo {
+    display: flex;
+    margin-left: 200px;
+    margin-top: 10px;
+    float: right;
+    text-align: end;
+  }
+}
+@media screen and (max-width: 661px) {
+  #drum-machine {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #container {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  #pad-container {
+  }
+  .drum-pad {
+    width: 60px;
+    height: 50px;
+  }
+  .logo {
+    display: flex;
+    margin-left: 200px;
+    margin-top: 10px;
+    float: right;
+    text-align: end;
+  }
 }

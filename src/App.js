@@ -32,10 +32,12 @@ function App() {
 
   //const isActive = useRef(true);
 
-  const playSound = (key, snd) => {
-    setSoundTitle(snd);
+  const playSound = (key, sound) => {
+    setSoundTitle(sound);
+    console.log("key", key);
+    console.log("sound", sound);
     const audio = document.getElementById(key);
-
+    stylePad(audio);
     if (audio) {
       audio.play();
     } else {
@@ -48,6 +50,7 @@ function App() {
   //passed as props to second group.
   const switchSoundPlay = () => {
     setSoundTitle("");
+
     if (soundType === "heaterKit") {
       setIsChecked(!isChecked);
       setSoundType("smoothSound");
@@ -56,14 +59,13 @@ function App() {
       setIsChecked(false);
       setSoundType("heaterKit");
       setSounds(soundGroups.heaterKit);
-      // setSoundTitle(soundGroups.heaterKit.id);
     }
   };
 
   const handleVolume = (e) => {
     setVolume(e.target.value);
   };
-  console.log("voluem", volume);
+
   //create a methd to connect the input volume to
   //audi so we can manipulate the volume.
   //to do this, get the sounds'key and loop thru the result
@@ -80,14 +82,24 @@ function App() {
   //create power on/off method
   //and pass it in return div so that whenever there a rerender,
   //it's called
-  const styleButton = (p) => {
+  const refButton = (p) => {
     if (p) {
       isActive.current.style.backgroundColor = "#4E51DF";
       isActive.current.style.color = "white";
       isActive.current.style.borderRadius = "10px";
+      isActive.current.style.transition = `all 0.3s easy-in-out 0s`;
     } else {
       isActive.current.style = "initial";
     }
+  };
+
+  const stylePad = (pad) => {
+    //console.log("pad", (pad.parentNode.style.backgroundColor = "green"));
+
+    pad.parentNode.style.backgroundColor = "#f2a443";
+    setTimeout(() => {
+      pad.parentNode.style.backgroundColor = "#808080";
+    }, 200);
   };
   const switchPower = () => {
     setPower(!power);
@@ -99,7 +111,7 @@ function App() {
       ? controls.classList.add("controls")
       : controls.classList.remove("controls");
     console.log("active", isActive.current.style);
-    styleButton(power);
+    refButton(power);
   };
 
   return (
@@ -107,7 +119,12 @@ function App() {
       <Logo />
       {setKeyVolume()}
       <div id="container">
-        <KeyPads playSound={playSound} sounds={sounds} power={power} />
+        <KeyPads
+          title={soundTitle || typeOfSound[soundType]}
+          playSound={playSound}
+          sounds={sounds}
+          power={power}
+        />
         <SecondSoundGroup
           isActive={isActive}
           isChecked={isChecked}

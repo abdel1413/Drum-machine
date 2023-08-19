@@ -8,18 +8,18 @@ import { KeyPressWithNosound } from "./KeyPressWithNoSound";
 //component that call its child component keypress to
 //produce a sound on click with method playSound passed as prop.
 
-// The cild comp KeyPads takes its prop PlaySound and
+// The child comp KeyPads takes its prop PlaySound and
 // passed it to its child comp keyPress.
 export const KeyPads = ({ power, playSound, sounds }) => {
-  //console.log("sounds", sounds);
-  //console.log(power);
+  console.log("sounds", sounds);
+
   //!power && sounds.map((sound) => console.log({ ...sound, src: null }));
 
   let padWithSound = sounds.map((sound) => (
-    <KeyPress playSound={playSound} snd={sound} />
+    <KeyPress playSound={playSound} sound={sound} />
   ));
   let padWithNoSound = sounds.map((sound) => (
-    <KeyPressWithNosound snd={{ ...sound, src: null }} />
+    <KeyPressWithNosound sound={{ ...sound, src: null }} />
   ));
 
   return <div id="pad-container">{power ? padWithSound : padWithNoSound}</div>;
@@ -44,8 +44,8 @@ export const KeyPads = ({ power, playSound, sounds }) => {
 //   return (
 //     <div id="pad-container">
 //       {SoundData.map((sound) => (
-//           <button className='drum-pad' id={sound.id} key={sound.key}>
-//               <audio className="clip" src={sound.src} onClick={ playSound}/>
+//           <button className='drum-pad' id={sound.id} key={sound.key}  onClick={ playSound}>
+//               <audio className="clip" src={sound.src} id={sound.id}/>
 //               {sound.key}
 //         </button>
 //       ))}

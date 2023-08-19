@@ -20,12 +20,13 @@ export const SecondSoundGroup = ({
       <button ref={isActive} onClick={switchPower}>
         {power ? "OFF" : "ON"}
       </button>
+
       <div className="second-column">
-        <div>
-          <p className="percentage">Volume: %{Math.round(volume * 100)}</p>
-        </div>
+        <p className="percentage">Volume: %{Math.round(volume * 100)}</p>
+
         <VolumeSlider volume={volume} handleVolume={handleVolume} />
-        <div id="display">{title || volume}</div>
+
+        <div id="display">{title}</div>
 
         <SwitchSoundButton
           isChecked={isChecked}
